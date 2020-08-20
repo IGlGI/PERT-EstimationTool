@@ -1,0 +1,87 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             x:Class="PertEstimationTool.Views.ControlPanelView"
+             xmlns:resource ="clr-namespace:PertEstimationTool.Properties">
+
+  <UserControl.Styles>
+    <Style Selector="TextBox.Assesment">
+      <Setter Property="HorizontalAlignment" Value="Left"/>
+      <Setter Property="FontFamily" Value="Segoe UI Light"/>
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Margin" Value="0 5"/>
+      <Setter Property="MinWidth" Value="60"/>
+    </Style>
+    <Style Selector="TextBlock.Text">
+      <Setter Property="FontFamily" Value="Segoe UI Light" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Foreground" Value="Gray"/>
+      <Setter Property="Margin" Value="10" />
+    </Style>
+
+    <Style Selector="Button.ControlPanelButton">
+      <Setter Property="Margin" Value="10"/>
+      <Setter Property="FontFamily" Value="Segoe UI Light" />
+      <Setter Property="FontSize" Value="16"/>
+      <Setter Property="Padding" Value="10 5" />
+    </Style>
+  </UserControl.Styles>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="65"/>
+      <RowDefinition Height="60"/>
+      <RowDefinition Height="75"/>
+    </Grid.RowDefinitions>
+
+    <Grid Margin="10" Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MaxWidth="250"/>
+        <ColumnDefinition MaxWidth="250"/>
+        <ColumnDefinition MaxWidth="250"/>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+
+      <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="10 0">
+        <TextBlock Classes="Text" Text="{x:Static resource:Resources.optimistic}" TextAlignment="Left" />
+        <TextBox MaxLength="5" Classes="Assesment" Text="{Binding Optimistic}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20 0">
+        <TextBlock Classes="Text" Text="{x:Static resource:Resources.mostLikely}" TextAlignment="Left"/>
+        <TextBox MaxLength="5" Classes="Assesment" Text="{Binding MostLikely}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="20 0">
+        <TextBlock Classes="Text" Text="{x:Static resource:Resources.pessimistic}" TextAlignment="Left"/>
+        <TextBox MaxLength="5" Classes="Assesment" Text="{Binding Pessimistic}" />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="30 10" Grid.Column="3" HorizontalAlignment="Left" >
+        <ComboBox MinWidth="70" Height="37" HorizontalAlignment="Right" Items="{Binding EstimationTimeFormats}" SelectedItem="{Binding SetTimeFormat}" SelectedIndex="0"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Grid.Column="4" HorizontalAlignment="Right" >
+        <ComboBox MinWidth="45" Height="37" HorizontalAlignment="Left" Items="{Binding Languages}" SelectedIndex="{Binding SetLanguage}"/>
+      </StackPanel>
+    </Grid>
+
+
+    <Grid Margin="10" Grid.Row="1">
+      <StackPanel Orientation="Horizontal" Margin="10 0">
+        <TextBlock Classes="Text" MinWidth="115" Text="{x:Static resource:Resources.taskDescription}" TextAlignment="Left"/>
+        <TextBox Classes="Assesment" HorizontalAlignment="Stretch" Margin="5 5" MaxLength="130" MinHeight="35" MinWidth="545" MaxWidth="545" FontSize="14" Text="{Binding Description}"/>
+      </StackPanel>
+    </Grid>
+
+    <Grid  Margin="10" Grid.Row="2">
+      <StackPanel Orientation="Horizontal" Margin="10 0">
+        <Button Classes="ControlPanelButton" IsEnabled="{Binding IsEnableAddCommand}" Command="{Binding AddCommand}" Content="{x:Static resource:Resources.addTask}"></Button>
+        <Button Classes="ControlPanelButton" IsEnabled="{Binding IsEnableResetCommand}" Command="{Binding ResetCommand}" Content="{x:Static resource:Resources.resetTask}"></Button>
+        <Button Classes="ControlPanelButton" IsEnabled="{Binding IsEnableCalculateCommand}" Command="{Binding CalculateCommand}" Content="{x:Static resource:Resources.calculate}"></Button>
+        <TextBlock Classes="Text" Margin="20 0" Text="{x:Static resource:Resources.desiredCompletionTime}" TextAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox Classes="Assesment" HorizontalAlignment="Left" MaxLength="5" Text="{Binding DesiredCompletionTime}" Height="33" Width="70"/>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</UserControl>

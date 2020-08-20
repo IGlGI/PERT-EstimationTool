@@ -1,0 +1,22 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:PertEstimationTool.Properties"
+        xmlns:views="clr-namespace:PertEstimationTool.Views"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        x:Class="PertEstimationTool.Views.ShellView"
+        MinWidth="960" MinHeight="460"
+        CanResize="True"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="{x:Static p:Resources.appTitle}">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="200"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <ContentControl Grid.Row="0" prism:RegionManager.RegionName="ControlPanelRegion"/>
+    <ContentControl Grid.Row="1" HorizontalContentAlignment="Stretch" prism:RegionManager.RegionName="TasksTableRegion" VerticalContentAlignment="Top"/>
+  </Grid>
+</Window>

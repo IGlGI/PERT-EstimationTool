@@ -1,0 +1,13 @@
+﻿<prism:PrismApplication xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PertEstimationTool"
+             xmlns:prism="http://prismlibrary.com/"
+             x:Class="PertEstimationTool.App">
+  <Application.DataTemplates>
+  </Application.DataTemplates>
+
+  <Application.Styles>
+    <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+    <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
+  </Application.Styles>
+</prism:PrismApplication>

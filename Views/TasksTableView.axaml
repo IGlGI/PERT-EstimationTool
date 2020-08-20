@@ -1,0 +1,71 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             x:Class="PertEstimationTool.Views.TasksTableView"
+             xmlns:resource ="clr-namespace:PertEstimationTool.Properties">
+
+  <UserControl.Styles>
+    <Style Selector="TextBlock.Header">
+      <Setter Property="FontFamily" Value="Segoe UI" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Foreground" Value="#7A7A7A"/>
+      <Setter Property="Margin" Value="20 0" />
+    </Style>
+    <Style Selector="TextBlock.Text">
+      <Setter Property="FontFamily" Value="Segoe UI Light" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Foreground" Value="Black"/>
+      <Setter Property="Margin" Value="10 10 15 10" />
+      <Setter Property="TextAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </UserControl.Styles>
+
+  <Grid HorizontalAlignment="Stretch" Grid.IsSharedSizeScope="True">
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="40"/>
+      <RowDefinition />
+    </Grid.RowDefinitions>
+
+    <Grid Background="#F5F5F5" Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="350"/>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+
+      <TextBlock Grid.Column="0" Classes="Header" Text="{x:Static resource:Resources.taskDescription}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <TextBlock Grid.Column="1" Classes="Header" Text="{x:Static resource:Resources.optimistic}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <TextBlock Grid.Column="2" Classes="Header" Text="{x:Static resource:Resources.mostLikely}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <TextBlock Grid.Column="3" Classes="Header" Text="{x:Static resource:Resources.pessimistic}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+
+    <ListBox Items="{Binding TasksItems}" Grid.Row="1" Margin="0 5" BorderThickness="0">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition/>
+              <ColumnDefinition/>
+              <ColumnDefinition/>
+              <ColumnDefinition/>
+              <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Center" MinWidth="350" MaxWidth="350" TextWrapping="Wrap" Classes="Text" Text="{Binding Path=Description}"/>
+            <TextBlock Grid.Column="1" Classes="Text" Text="{Binding Path=Assessments.Optimistic}" />
+            <TextBlock Grid.Column="2" Classes="Text" Text="{Binding Path=Assessments.MostLikely}" />
+            <TextBlock Grid.Column="3"  Classes="Text" Text="{Binding Path=Assessments.Pessimistic}" />
+            <Button Grid.Column="4" HorizontalAlignment="Right" Margin="10 0" MaxWidth="70" MinWidth="50" Height="30" Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding Id}" Content="{x:Static resource:Resources.delete}"></Button>
+          </Grid>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+  </Grid>
+
+</UserControl>
