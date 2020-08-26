@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Threading;
+using MessageBox.Avalonia.Enums;
 using PertEstimationTool.Enums;
 using PertEstimationTool.Events;
 using PertEstimationTool.Models;
@@ -251,7 +252,7 @@ namespace PertEstimationTool.ViewModels
 
             if (_firstLoadSetLanguage)
             {
-                await _notificationService.ShowNotification(Properties.Resources.saveChangesNotify, header: Properties.Resources.warning, parentWindow: _shellWindow, windowStartupLocation: WindowStartupLocation.CenterScreen);
+                await _notificationService.ShowNotification(Properties.Resources.saveChangesNotify, icon: Icon.Warning, header: Properties.Resources.warning, parentWindow: _shellWindow, windowStartupLocation: WindowStartupLocation.CenterScreen);
                 Properties.Settings.Default.Save();
             }
             else

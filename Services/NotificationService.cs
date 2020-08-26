@@ -1,9 +1,15 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
 using MessageBox.Avalonia.Models;
+using MessageBox.Avalonia.Views;
 using PertEstimationTool.Enums;
 using PertEstimationTool.Services.Interfaces;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PertEstimationTool.Services
@@ -13,10 +19,11 @@ namespace PertEstimationTool.Services
         public async Task<bool> ShowNotification(string message, string title = null, string header = null, Window parentWindow = null,
                                                  MessageBoxType messageBoxType = MessageBoxType.Ok, bool showInCenter = true,
                                                  WindowStartupLocation windowStartupLocation = WindowStartupLocation.CenterOwner,
-                                                 Style style = Style.Windows, bool canResize = false)
+                                                 Style style = Style.UbuntuLinux, Icon icon = Icon.Info, WindowIcon windowIcon = null, bool canResize = false)
         {
             var msgBox = new MessageBoxCustomParams
             {
+                Icon = icon,
                 Style = style,
                 WindowStartupLocation = windowStartupLocation,
                 ShowInCenter = showInCenter,
@@ -38,6 +45,12 @@ namespace PertEstimationTool.Services
                 default:
                     msgBox.ButtonDefinitions = new[] { new ButtonDefinition { Name = Properties.Resources.ok } };
                     break;
+            }
+
+            if (windowIcon == null)
+            {
+                var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
+                msgBox.WindowIcon = new WindowIcon(assets.Open(new Uri("avares://PertEstimationTool/Assets/main.ico")));
             }
 
             var result = await MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(msgBox).ShowDialog(parentWindow);

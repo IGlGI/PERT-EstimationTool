@@ -9,7 +9,7 @@
         CanResize="True"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/main.ico"
         Title="{x:Static p:Resources.appTitle}">
   <Grid>
     <Grid.RowDefinitions>

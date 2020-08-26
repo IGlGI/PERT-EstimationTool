@@ -2,9 +2,24 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ApplicationIcon>main.ico</ApplicationIcon>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Remove="MessageBox.Avalonia\**" />
+    <Compile Remove="MessageBox.Avalonia\**" />
+    <EmbeddedResource Remove="MessageBox.Avalonia\**" />
+    <None Remove="MessageBox.Avalonia\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Remove="Assets\main.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\main.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Accord.Statistics" Version="3.8.0" />
@@ -17,6 +32,16 @@
     <PackageReference Include="System.Collections" Version="4.3.0" />
     <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Update="Assets\main.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AvaloniaResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Assets\main.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

@@ -4,29 +4,88 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             Background="#F2F2F4"
              x:Class="PertEstimationTool.Views.ControlPanelView"
              xmlns:resource ="clr-namespace:PertEstimationTool.Properties">
 
   <UserControl.Styles>
+    <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#FCE3CD"/>
+    </Style>
+
+    <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
+      <Setter Property="Background" Value="#DD4812"/>
+    </Style>
+
+    <Style Selector="ComboBoxItem:selected:focus /template/ ContentPresenter">
+      <Setter Property="Background" Value="#FCE3CD"/>
+    </Style>
+
+    <Style Selector="ComboBoxItem:selected:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#FCE3CD"/>
+    </Style>
+
+    <Style Selector="ComboBoxItem:selected:focus:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#FCE3CD"/>
+    </Style>
+    <Style Selector="ComboBox:focus /template/ Border#border">
+      <Setter Property="BorderBrush" Value="#DD4812"/>
+    </Style>
+    <Style Selector="ComboBox:pointerover /template/ Border#border">
+      <Setter Property="BorderBrush" Value="#DD4812"/>
+    </Style>
+    <Style Selector="ComboBox.Orange">
+      <Setter Property="HorizontalAlignment" Value="Left"/>
+      <Setter Property="FontFamily" Value="Segoe UI Light"/>
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="BorderBrush" Value="White"/>
+      <Setter Property="BorderThickness" Value="0,0,0,1"/>
+      <Setter Property="Background" Value="White" />
+    </Style>
+
+    <Style Selector="TextBox:focus /template/ Border#border">
+      <Setter Property="BorderBrush" Value="#DD4812"/>
+    </Style>
+    <Style Selector="TextBox:pointerover /template/ Border#border">
+      <Setter Property="BorderBrush" Value="#DD4812"/>
+    </Style>
     <Style Selector="TextBox.Assesment">
       <Setter Property="HorizontalAlignment" Value="Left"/>
       <Setter Property="FontFamily" Value="Segoe UI Light"/>
       <Setter Property="FontSize" Value="16" />
-      <Setter Property="Margin" Value="0 5"/>
+      <Setter Property="Margin" Value="0 7"/>
       <Setter Property="MinWidth" Value="60"/>
+      <Setter Property="BorderBrush" Value="White"/>
+      <Setter Property="BorderThickness" Value="0,0,0,1"/>
     </Style>
+
     <Style Selector="TextBlock.Text">
       <Setter Property="FontFamily" Value="Segoe UI Light" />
       <Setter Property="FontSize" Value="16" />
-      <Setter Property="Foreground" Value="Gray"/>
+      <Setter Property="Foreground" Value="Black"/>
       <Setter Property="Margin" Value="10" />
     </Style>
 
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="White"/>
+      <Setter Property="BorderBrush" Value="#DD4812"/>
+    </Style>
+    <Style Selector="Button:pressed  /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource ThemeControlHighBrush}"/>
+    </Style>
+    <Style Selector="Button.ControlPanelButton /template/ ContentPresenter">
+      <Setter Property="CornerRadius" Value="10"/>
+    </Style>
     <Style Selector="Button.ControlPanelButton">
+      <Setter Property="Background" Value="#DBDBDB"/>
+      <Setter Property="BorderBrush" Value="#F2F2F4"/>
       <Setter Property="Margin" Value="10"/>
       <Setter Property="FontFamily" Value="Segoe UI Light" />
       <Setter Property="FontSize" Value="16"/>
       <Setter Property="Padding" Value="10 5" />
+    </Style>
+
+    <Style Selector="TextBlock.StyledBorder">
     </Style>
   </UserControl.Styles>
 
@@ -59,10 +118,10 @@
         <TextBox MaxLength="5" Classes="Assesment" Text="{Binding Pessimistic}" />
       </StackPanel>
       <StackPanel Orientation="Horizontal" Margin="30 10" Grid.Column="3" HorizontalAlignment="Left" >
-        <ComboBox MinWidth="70" Height="37" HorizontalAlignment="Right" Items="{Binding EstimationTimeFormats}" SelectedItem="{Binding SetTimeFormat}" SelectedIndex="0"/>
+        <ComboBox Classes="Orange" MinWidth="70" Height="37" HorizontalAlignment="Right" Items="{Binding EstimationTimeFormats}" SelectedItem="{Binding SetTimeFormat}" SelectedIndex="0"/>
       </StackPanel>
       <StackPanel Orientation="Horizontal" Grid.Column="4" HorizontalAlignment="Right" >
-        <ComboBox MinWidth="45" Height="37" HorizontalAlignment="Left" Items="{Binding Languages}" SelectedIndex="{Binding SetLanguage}"/>
+        <ComboBox Classes="Orange" MinWidth="45" Height="37" HorizontalAlignment="Left" Items="{Binding Languages}" SelectedIndex="{Binding SetLanguage}"/>
       </StackPanel>
     </Grid>
 
@@ -70,7 +129,7 @@
     <Grid Margin="10" Grid.Row="1">
       <StackPanel Orientation="Horizontal" Margin="10 0">
         <TextBlock Classes="Text" MinWidth="115" Text="{x:Static resource:Resources.taskDescription}" TextAlignment="Left"/>
-        <TextBox Classes="Assesment" HorizontalAlignment="Stretch" Margin="5 5" MaxLength="130" MinHeight="35" MinWidth="545" MaxWidth="545" FontSize="14" Text="{Binding Description}"/>
+        <TextBox Classes="Assesment" HorizontalAlignment="Stretch" Padding="5 7" Margin="5 5" MaxLength="130" MinHeight="35" MinWidth="545" MaxWidth="545" FontSize="15" Text="{Binding Description}"/>
       </StackPanel>
     </Grid>
 
