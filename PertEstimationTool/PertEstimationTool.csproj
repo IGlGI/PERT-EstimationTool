@@ -5,6 +5,7 @@
     <ApplicationIcon>main.ico</ApplicationIcon>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
@@ -22,6 +23,7 @@
     <None Remove="Assets\main.ico" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Dotnet.Bundle" Version="*" />
     <PackageReference Include="Accord.Statistics" Version="3.8.0" />
     <PackageReference Include="Avalonia" Version="0.9.12" />
     <PackageReference Include="Avalonia.Desktop" Version="0.9.12" />

@@ -47,11 +47,12 @@ namespace PertEstimationTool.Services
                     break;
             }
 
-            if (windowIcon == null)
-            {
-                var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-                msgBox.WindowIcon = new WindowIcon(assets.Open(new Uri("avares://PertEstimationTool/Assets/main.ico")));
-            }
+            //The feature is temporarily unavailable 
+            //if (windowIcon == null)
+            //{
+            //    var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
+            //    msgBox.WindowIcon = new WindowIcon(assets.Open(new Uri("avares://PertEstimationTool/Assets/main.ico")));
+            //}
 
             var result = await MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(msgBox).ShowDialog(parentWindow);
 

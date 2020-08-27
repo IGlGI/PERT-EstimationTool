@@ -53,18 +53,18 @@ namespace PertEstimationTool.Services
                 var optimistic = taskItem.Assessments.Optimistic;
                 var mostLikely = taskItem.Assessments.MostLikely;
                 var pessimistic = taskItem.Assessments.Pessimistic;
-                var deviation = _calculateService.CalculateStDeviation(taskItem.Assessments.Estimation, optimistic, mostLikely, pessimistic);
+                var deviation = await _calculateService.CalculateStDeviation(optimistic, pessimistic);
 
-                taskItem.Assessments.Estimation = _calculateService.CalculateEstimation(optimistic, mostLikely, pessimistic);
+                taskItem.Assessments.Estimation = await _calculateService.CalculateEstimation(optimistic, mostLikely, pessimistic);
                 taskItem.Assessments.StDeviation += deviation;
-                taskItem.Assessments.Variance += _calculateService.CalculateVariance(deviation);
+                taskItem.Assessments.Variance += await _calculateService.CalculateVariance(deviation);
 
                 totalAssessments.SumEstimation += taskItem.Assessments.Estimation;
                 totalAssessments.SumStDeviation += taskItem.Assessments.StDeviation;
                 totalAssessments.SumVariance += taskItem.Assessments.Variance;
             }
 
-            totalAssessments.PercentageOfCompletion = _calculateService.CalculatePercentageOfCompletion(totalAssessments.SumEstimation, totalAssessments.SumVariance, desiredCompletionTime);
+            totalAssessments.PercentageOfCompletion = await _calculateService.CalculatePercentageOfCompletion(totalAssessments.SumEstimation, totalAssessments.SumVariance, desiredCompletionTime);
             await _cacheService.Upadate<SummaryAssessment>(nameof(SummaryAssessment), totalAssessments);
 
             return totalAssessments;

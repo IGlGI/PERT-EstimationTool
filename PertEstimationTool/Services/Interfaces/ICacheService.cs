@@ -4,7 +4,7 @@ namespace PertEstimationTool.Services.Interfaces
 {
     public interface ICacheService
     {
-        Task<T> Get<T>(string key);
+        Task<object> Get(string key);
 
         Task Add<T>(string key, T obj);
 

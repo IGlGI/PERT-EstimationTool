@@ -37,14 +37,14 @@ namespace PertEstimationTool.Services
             }
         }
 
-        public async Task<T> Get<T>(string key)
+        public async Task<object> Get(string key)
         {
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentNullException("The key cannot be empty or null");
 
             try
             {
-                return (T)_memoryCache.Get(key);
+                return _memoryCache.Get(key);
             }
             catch
             {

@@ -25,19 +25,23 @@ namespace PertEstimationTool.Services
             if (string.IsNullOrEmpty(cacheKey))
                 throw new Exception("The key cannot be null or empty");
 
-            var item = await _cacheService.Get<T>(cacheKey);
+            var item = await _cacheService.Get(cacheKey);
 
             if (item == null)
             {
-                item = _container.Resolve<T>(cacheKey);
-
-                if (item == null)
+                try
+                {
+                    item = _container.Resolve<T>(cacheKey);
+                }
+                catch
+                {
                     throw new Exception("The requested data wasn't found.");
+                }
 
-                await _cacheService.Upadate<T>(cacheKey, item);
+                await _cacheService.Upadate<T>(cacheKey, (T)item);
             }
 
-            return item;
+            return (T)item;
         }
 
         public async Task<T> Reset<T>(string key) where T : class, new()

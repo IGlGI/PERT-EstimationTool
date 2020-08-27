@@ -58,24 +58,24 @@ namespace PertEstimationTool.Services
 
 
             var tableHeader = resultDataSheet.Cell("A1");
-            tableHeader = await SetStyleToCell(tableHeader, backgroundColor: XLColor.Green, fontSize: 16);
+            tableHeader = await SetStyleToCell(tableHeader, backgroundColor: XLColor.FromArgb(196, 215, 155), fontSize: 16);
             tableHeader.Value = Properties.Resources.calculationResult;
             resultDataSheet.Range("A1:D1").Merge();
 
             var taskDescriptionHead = resultDataSheet.Cell("A2");
-            taskDescriptionHead = await SetStyleToCell(taskDescriptionHead, backgroundColor: XLColor.Almond);
+            taskDescriptionHead = await SetStyleToCell(taskDescriptionHead, backgroundColor: XLColor.FromArgb(235, 241, 222));
             taskDescriptionHead.Value = Properties.Resources.taskDescription;
 
             var expectedTimeHead = resultDataSheet.Cell("B2");
-            expectedTimeHead = await SetStyleToCell(expectedTimeHead, backgroundColor: XLColor.Almond);
+            expectedTimeHead = await SetStyleToCell(expectedTimeHead, backgroundColor: XLColor.FromArgb(235, 241, 222));
             expectedTimeHead.Value = Properties.Resources.expectedTime;
 
             var stDeviationHead = resultDataSheet.Cell("C2");
-            stDeviationHead = await SetStyleToCell(stDeviationHead, backgroundColor: XLColor.Almond);
+            stDeviationHead = await SetStyleToCell(stDeviationHead, backgroundColor: XLColor.FromArgb(235, 241, 222));
             stDeviationHead.Value = Properties.Resources.stDeviation;
 
             var varianceHead = resultDataSheet.Cell("D2");
-            varianceHead = await SetStyleToCell(varianceHead, backgroundColor: XLColor.Almond);
+            varianceHead = await SetStyleToCell(varianceHead, backgroundColor: XLColor.FromArgb(235, 241, 222));
             varianceHead.Value = Properties.Resources.variance;
 
             var itemNumber = 3;
@@ -105,19 +105,19 @@ namespace PertEstimationTool.Services
             var endOfTable = itemNumber++;
 
             var expectedTimeSumCell = resultDataSheet.Cell($"B{endOfTable}");
-            expectedTimeSumCell = await SetStyleToCell(expectedTimeSumCell, backgroundColor: XLColor.GoldenYellow, fontSize: 14);
+            expectedTimeSumCell = await SetStyleToCell(expectedTimeSumCell, backgroundColor: XLColor.FromArgb(146, 208, 80), fontSize: 14);
             expectedTimeSumCell.Value = total.SumEstimation;
 
             var stDeviationSumCell = resultDataSheet.Cell($"C{endOfTable}");
-            stDeviationSumCell = await SetStyleToCell(stDeviationSumCell, backgroundColor: XLColor.GoldenYellow, fontSize: 14);
+            stDeviationSumCell = await SetStyleToCell(stDeviationSumCell, backgroundColor: XLColor.FromArgb(146, 208, 80), fontSize: 14);
             stDeviationSumCell.Value = total.SumStDeviation;
 
             var varianceSumCell = resultDataSheet.Cell($"D{endOfTable}");
-            varianceSumCell = await SetStyleToCell(varianceSumCell, backgroundColor: XLColor.GoldenYellow, fontSize: 14);
+            varianceSumCell = await SetStyleToCell(varianceSumCell, backgroundColor: XLColor.FromArgb(146, 208, 80), fontSize: 14);
             varianceSumCell.Value = total.SumVariance;
 
             var probabilityOfCompletionCell = resultDataSheet.Cell($"A{endOfTable++}");
-            probabilityOfCompletionCell = await SetStyleToCell(probabilityOfCompletionCell, backgroundColor: XLColor.GoldenYellow, fontSize: 14, isFontBold: true);
+            probabilityOfCompletionCell = await SetStyleToCell(probabilityOfCompletionCell, backgroundColor: XLColor.FromArgb(146, 208, 80), fontSize: 14, isFontBold: true);
             probabilityOfCompletionCell.Value = $"{Properties.Resources.probabilityCompletion}: {total.PercentageOfCompletion} %";
 
             return workBook;
@@ -140,7 +140,7 @@ namespace PertEstimationTool.Services
 
 
             var tableHeader = sourceDataSheet.Cell("A1");
-            tableHeader = await SetStyleToCell(tableHeader, backgroundColor: XLColor.Orange, fontSize: 16);
+            tableHeader = await SetStyleToCell(tableHeader, backgroundColor: XLColor.FromArgb(250, 191, 143), fontSize: 16);
             tableHeader.Value = Properties.Resources.sourceData;
             sourceDataSheet.Range("A1:D1").Merge();
 
@@ -203,14 +203,18 @@ namespace PertEstimationTool.Services
 
         private async Task<IXLCell> SetStyleToCell(IXLCell cell, int fontSize = 12, string fontName = "Segoe UI", bool isFontBold = false,
                                                    XLColor backgroundColor = null, XLAlignmentHorizontalValues horizontalAlignment = XLAlignmentHorizontalValues.Center,
-                                                   XLColor outsideBorderColor = null, XLBorderStyleValues outsideBorder = XLBorderStyleValues.Dashed)
+                                                   XLAlignmentVerticalValues verticalAlignment = XLAlignmentVerticalValues.Center, XLColor outsideBorderColor = null, XLBorderStyleValues outsideBorder = XLBorderStyleValues.Dashed)
         {
             cell.Style.Font.FontSize = fontSize;
-            cell.Style.Alignment.Horizontal = horizontalAlignment;
             cell.Style.Font.FontName = fontName;
             cell.Style.Font.Bold = isFontBold;
+
             cell.Style.Border.OutsideBorder = outsideBorder;
             cell.Style.Border.OutsideBorderColor = outsideBorderColor ?? XLColor.LightSlateGray;
+
+            cell.Style.Alignment.SetHorizontal(horizontalAlignment);
+            cell.Style.Alignment.SetVertical(verticalAlignment);
+            cell.Style.Alignment.SetWrapText();
 
             if (backgroundColor != null)
                 cell.Style.Fill.BackgroundColor = backgroundColor;
