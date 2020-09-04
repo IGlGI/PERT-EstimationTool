@@ -23,7 +23,7 @@ namespace PertEstimationTool.Tests.Services
 
         public CacheServiceTests()
         {
-            _container = new ContainerHelper().GetContainer();
+            _container = new TestsHelper().GetContainer();
             _fixture = _container.Resolve<Fixture>();
             _cacheService = _container.Resolve<ICacheService>();
             _memoryCache = _container.Resolve<MemoryCache>();

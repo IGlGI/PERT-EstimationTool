@@ -21,7 +21,7 @@ namespace PertEstimationTool.Tests.Services
 
         public ControlServiceTests()
         {
-            _container = new ContainerHelper().GetContainer();
+            _container = new TestsHelper().GetContainer();
             _fixture = _container.Resolve<Fixture>();
             _controlService = _container.Resolve<IControlService>();
             _cacheService = _container.Resolve<ICacheService>();

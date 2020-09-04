@@ -31,7 +31,7 @@ namespace PertEstimationTool.Tests.Services
 
         public CalculateServiceTests()
         {
-            _container = new ContainerHelper().GetContainer();
+            _container = new TestsHelper().GetContainer();
             _calculateService = _container.Resolve<ICalculateService>();
             _fixture = _container.Resolve<Fixture>();
         }
