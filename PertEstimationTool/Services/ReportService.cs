@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ClosedXML.Excel;
+using PertEstimationTool.Models;
+using PertEstimationTool.Services.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia.Controls;
-using ClosedXML.Excel;
-using PertEstimationTool.Enums;
-using PertEstimationTool.Models;
-using PertEstimationTool.Services.Interfaces;
 using Unity;
 
 namespace PertEstimationTool.Services
@@ -40,7 +37,7 @@ namespace PertEstimationTool.Services
             }
         }
 
-        private async Task<XLWorkbook> PrepareResultDataTable(XLWorkbook workBook, ObservableCollection<TaskItem> tasks, SummaryAssessment total)
+        internal async Task<XLWorkbook> PrepareResultDataTable(XLWorkbook workBook, ObservableCollection<TaskItem> tasks, SummaryAssessment total)
         {
             var resultDataSheet = workBook.Worksheets.Add(Properties.Resources.calculationResult);
 
@@ -122,7 +119,8 @@ namespace PertEstimationTool.Services
 
             return workBook;
         }
-        private async Task<XLWorkbook> PrepareSourceDataTable(XLWorkbook workBook, ObservableCollection<TaskItem> tasks, SummaryAssessment total)
+
+        internal async Task<XLWorkbook> PrepareSourceDataTable(XLWorkbook workBook, ObservableCollection<TaskItem> tasks, SummaryAssessment total)
         {
             var sourceDataSheet = workBook.Worksheets.Add(Properties.Resources.sourceData);
 
@@ -201,7 +199,7 @@ namespace PertEstimationTool.Services
             return workBook;
         }
 
-        private async Task<IXLCell> SetStyleToCell(IXLCell cell, int fontSize = 12, string fontName = "Segoe UI", bool isFontBold = false,
+        internal async Task<IXLCell> SetStyleToCell(IXLCell cell, int fontSize = 12, string fontName = "Segoe UI", bool isFontBold = false,
                                                    XLColor backgroundColor = null, XLAlignmentHorizontalValues horizontalAlignment = XLAlignmentHorizontalValues.Center,
                                                    XLAlignmentVerticalValues verticalAlignment = XLAlignmentVerticalValues.Center, XLColor outsideBorderColor = null, XLBorderStyleValues outsideBorder = XLBorderStyleValues.Dashed)
         {

@@ -1,11 +1,12 @@
 ﻿using AutoFixture;
-using ClosedXML.Excel;
 using FluentAssertions;
 using PertEstimationTool.Extensions;
+using PertEstimationTool.Models;
 using PertEstimationTool.Services;
 using PertEstimationTool.Services.Interfaces;
 using PertEstimationTool.Tests.Helpers;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Unity;
@@ -13,13 +14,13 @@ using Xunit;
 
 namespace PertEstimationTool.Tests.Services
 {
-    public class ExcelFileServiceTests : IDisposable
+    public class ReportServiceTests : IDisposable
     {
         private TestsHelper _helper;
 
         private IUnityContainer _container;
 
-        private ExcelFileService _excelFileService;
+        private ReportService _reportService;
 
         private ICalculateService _calculateService;
 
@@ -27,12 +28,12 @@ namespace PertEstimationTool.Tests.Services
 
         private string _testsFilesPath;
 
-        public ExcelFileServiceTests()
+        public ReportServiceTests()
         {
             _helper = new TestsHelper();
             _container = _helper.GetContainer();
-            _excelFileService = _container.Resolve<ExcelFileService>();
-            _testsFilesPath = Path.Combine(_container.Resolve<string>("TestsFilesPath") + $@"\{nameof(ExcelFileServiceTests)}\");
+            _reportService = _container.Resolve<ReportService>();
+            _testsFilesPath = Path.Combine(_container.Resolve<string>("TestsFilesPath") + $@"\{nameof(ReportServiceTests)}\");
             _fixture = _container.Resolve<Fixture>();
         }
 
@@ -42,22 +43,17 @@ namespace PertEstimationTool.Tests.Services
         }
 
         [Fact]
-        public async void ExcelFileServiceSaveShouldSaveExcelOutputFile()
+        public async void ReportServiceGenerateReportShouldSaveGeneratedReportToOutputFile()
         {
             //Arrange
-            var fileName = "ExcelFileServiceSaveShouldSaveExcelOutputFileTest.xlsx";
+            var fileName = "TestGeneratedReport.xlsx";
             var testFilePath = Path.Combine(_testsFilesPath, fileName);
-            var workBook = new XLWorkbook();
-            var dataSheet = workBook.Worksheets.Add("TestList_1");
-            var cellA1 = dataSheet.Cell("A1");
-            cellA1.Value = "Test data";
-
-            //Act
 
             if (Directory.Exists(testFilePath))
                 _helper.ClearDirectory(testFilePath);
 
-            await _excelFileService.Save(workBook, testFilePath);
+            //Act
+            await _reportService.GenerateReport(_fixture.Create<ObservableCollection<TaskItem>>(), _fixture.Create<SummaryAssessment>(), testFilePath);
             var result = Directory.EnumerateFiles(_testsFilesPath).First();
 
             //Assert

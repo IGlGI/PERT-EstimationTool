@@ -21,7 +21,7 @@ namespace PertEstimationTool.Tests.Helpers
     {
         public IUnityContainer GetContainer() => RegisterContainer(new UnityContainer());
 
-        public void ClearDirectory(string path)
+        public void ClearDirectory(string path, bool deleteRecursive = true)
         {
             if (Directory.Exists(path))
             {
@@ -32,7 +32,7 @@ namespace PertEstimationTool.Tests.Helpers
                     file.Delete();
                 }
 
-                directory.Delete(true);
+                directory.Delete(deleteRecursive);
             }
         }
 
