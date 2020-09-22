@@ -5,7 +5,7 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         x:Class="PertEstimationTool.Views.ShellView"
-        MinWidth="960" MinHeight="460"
+        MinWidth="960" MinHeight="480"
         CanResize="True"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight"
@@ -13,7 +13,7 @@
         Title="{x:Static p:Resources.appTitle}">
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="200"/>
+      <RowDefinition Height="250"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
     <ContentControl Grid.Row="0" prism:RegionManager.RegionName="ControlPanelRegion"/>

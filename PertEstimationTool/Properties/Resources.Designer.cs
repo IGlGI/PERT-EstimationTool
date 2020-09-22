@@ -268,6 +268,24 @@ namespace PertEstimationTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected time unit for all tasks is:.
+        /// </summary>
+        public static string setTime {
+            get {
+                return ResourceManager.GetString("setTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected estimations to finish a task.
+        /// </summary>
+        public static string setTimeEstimations {
+            get {
+                return ResourceManager.GetString("setTimeEstimations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Source data.
         /// </summary>
         public static string sourceData {

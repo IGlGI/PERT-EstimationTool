@@ -186,6 +186,12 @@
   <data name="saveChangesNotify" xml:space="preserve">
     <value>Restart the application to apply the changes.</value>
   </data>
+  <data name="setTime" xml:space="preserve">
+    <value>The selected time unit for all tasks is:</value>
+  </data>
+  <data name="setTimeEstimations" xml:space="preserve">
+    <value>Expected estimations to finish a task</value>
+  </data>
   <data name="sourceData" xml:space="preserve">
     <value>Source data</value>
   </data>

@@ -1,5 +1,4 @@
 ﻿using Avalonia.Controls;
-using Avalonia.Threading;
 using MessageBox.Avalonia.Enums;
 using PertEstimationTool.Enums;
 using PertEstimationTool.Events;
@@ -100,6 +99,9 @@ namespace PertEstimationTool.ViewModels
             set
             {
                 SetProperty(ref _setTimeFormat, value);
+
+                if (!string.IsNullOrEmpty(value))
+                    SelectTimeFormat();
             }
         }
 
@@ -182,7 +184,7 @@ namespace PertEstimationTool.ViewModels
 
         private ObservableCollection<TaskItem> _tasksItems;
 
-        private bool _firstLoadSetLanguage;
+        private bool _appLoaded;
 
         public ControlPanelViewModel(IEventAggregator eventAggregator, IUnityContainer container)
         {
@@ -204,15 +206,27 @@ namespace PertEstimationTool.ViewModels
             ResetCommand = new DelegateCommand<Guid?>(async x => await _taskService.ResetTasks());
         }
 
+        private async void SelectTimeFormat()
+        {
+            if (_appLoaded)
+            {
+                var message = $@"{Properties.Resources.setTime} {_setTimeFormat}";
+                await _notificationService.ShowNotification(message, parentWindow: _shellWindow, windowStartupLocation: WindowStartupLocation.CenterScreen,
+                                                            icon: Icon.Setting, messageBoxType: MessageBoxType.Ok);
+            }
+        }
+
         private async void CalculateResult()
         {
             var calculatedResult = await _taskService.CalculateTasks(_desiredCompletionTime, _setTimeFormat);
-            var textResult = $@"{Properties.Resources.expectedTime}: {calculatedResult.SumEstimation} {Environment.NewLine}" +
-                             $@"{Properties.Resources.variance}: {calculatedResult.SumVariance} {Environment.NewLine}" +
-                             $@"{Properties.Resources.stDeviation}: {calculatedResult.SumStDeviation} {Environment.NewLine}" +
-                             $@"{Properties.Resources.probabilityCompletion}: {calculatedResult.PercentageOfCompletion} %";
+            var message = $@"{Properties.Resources.expectedTime}: {calculatedResult.SumEstimation} {Environment.NewLine}" +
+                          $@"{Properties.Resources.variance}: {calculatedResult.SumVariance} {Environment.NewLine}" +
+                          $@"{Properties.Resources.stDeviation}: {calculatedResult.SumStDeviation} {Environment.NewLine}" +
+                          $@"{Properties.Resources.probabilityCompletion}: {calculatedResult.PercentageOfCompletion} %";
 
-            var userResponse = await _notificationService.ShowNotification(textResult, header: Properties.Resources.result, parentWindow: _shellWindow, windowStartupLocation: WindowStartupLocation.CenterScreen, title: Properties.Resources.calculationResult, messageBoxType: MessageBoxType.Generate_Cancel);
+            var userResponse = await _notificationService.ShowNotification(message, header: Properties.Resources.result,
+                                                                           parentWindow: _shellWindow, windowStartupLocation: WindowStartupLocation.CenterScreen,
+                                                                           title: Properties.Resources.calculationResult, messageBoxType: MessageBoxType.Generate_Cancel);
 
             if (userResponse)
             {
@@ -250,14 +264,16 @@ namespace PertEstimationTool.ViewModels
             _setLanguage = Properties.Settings.Default.Language;
             RaisePropertyChanged(nameof(SetLanguage));
 
-            if (_firstLoadSetLanguage)
+            if (_appLoaded)
             {
-                await _notificationService.ShowNotification(Properties.Resources.saveChangesNotify, icon: Icon.Warning, header: Properties.Resources.warning, parentWindow: _shellWindow, windowStartupLocation: WindowStartupLocation.CenterScreen);
+                await _notificationService.ShowNotification(Properties.Resources.saveChangesNotify, icon: Icon.Warning,
+                                                            header: Properties.Resources.warning, parentWindow: _shellWindow,
+                                                            windowStartupLocation: WindowStartupLocation.CenterScreen);
                 Properties.Settings.Default.Save();
             }
             else
             {
-                _firstLoadSetLanguage = true;
+                _appLoaded = true;
             }
         }
 
@@ -270,7 +286,9 @@ namespace PertEstimationTool.ViewModels
 
         private void TryEnableAddCommand()
         {
-            var commandRule = !string.IsNullOrEmpty(_description) && !string.IsNullOrWhiteSpace(_description) && _optimistic != 0 && _mostLikely != 0 && _pessimistic != 0;
+            var commandRule = !string.IsNullOrEmpty(_description) && !string.IsNullOrWhiteSpace(_description)
+                              && _optimistic != 0 && _mostLikely != 0 && _pessimistic != 0;
+
             ChangeBoolProperty(ref _isEnableAddCommand, commandRule, nameof(IsEnableAddCommand));
         }
 

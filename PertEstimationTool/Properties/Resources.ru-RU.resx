@@ -186,6 +186,12 @@
   <data name="saveChangesNotify" xml:space="preserve">
     <value>Для применения изменений, перезапустите приложение.</value>
   </data>
+  <data name="setTime" xml:space="preserve">
+    <value>Установлена единица измерения времени для всех задач:</value>
+  </data>
+  <data name="setTimeEstimations" xml:space="preserve">
+    <value>Предполагаемое время выполнения задачи</value>
+  </data>
   <data name="sourceData" xml:space="preserve">
     <value>Исходные данные</value>
   </data>

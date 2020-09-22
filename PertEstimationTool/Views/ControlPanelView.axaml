@@ -39,7 +39,8 @@
       <Setter Property="FontFamily" Value="Segoe UI Light"/>
       <Setter Property="FontSize" Value="16" />
       <Setter Property="BorderBrush" Value="White"/>
-      <Setter Property="BorderThickness" Value="0,0,0,1"/>
+      <Setter Property="BorderThickness" Value="0,0,0,2"/>
+      <Setter Property="MinHeight" Value="37"/>
       <Setter Property="Background" Value="White" />
     </Style>
 
@@ -53,10 +54,11 @@
       <Setter Property="HorizontalAlignment" Value="Left"/>
       <Setter Property="FontFamily" Value="Segoe UI Light"/>
       <Setter Property="FontSize" Value="16" />
-      <Setter Property="Margin" Value="0 7"/>
+      <Setter Property="Margin" Value="0 6"/>
       <Setter Property="MinWidth" Value="60"/>
+      <Setter Property="MinHeight" Value="35"/>
       <Setter Property="BorderBrush" Value="White"/>
-      <Setter Property="BorderThickness" Value="0,0,0,1"/>
+      <Setter Property="BorderThickness" Value="0,0,0,2"/>
     </Style>
 
     <Style Selector="TextBlock.Text">
@@ -91,12 +93,19 @@
 
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="45"/>
       <RowDefinition Height="65"/>
       <RowDefinition Height="60"/>
-      <RowDefinition Height="75"/>
+      <RowDefinition Height="80"/>
     </Grid.RowDefinitions>
 
-    <Grid Margin="10" Grid.Row="0">
+    <Grid Margin="5" Grid.Row="0">
+      <StackPanel Orientation="Horizontal" Margin="15 0">
+        <TextBlock Classes="Text" MinWidth="115" Text="{x:Static resource:Resources.setTimeEstimations}" TextAlignment="Left"/>
+      </StackPanel>
+    </Grid>
+
+    <Grid Margin="10" Grid.Row="1">
       <Grid.ColumnDefinitions>
         <ColumnDefinition MaxWidth="250"/>
         <ColumnDefinition MaxWidth="250"/>
@@ -117,8 +126,8 @@
         <TextBlock Classes="Text" Text="{x:Static resource:Resources.pessimistic}" TextAlignment="Left"/>
         <TextBox MaxLength="5" Classes="Assesment" Text="{Binding Pessimistic}" />
       </StackPanel>
-      <StackPanel Orientation="Horizontal" Margin="30 10" Grid.Column="3" HorizontalAlignment="Left" >
-        <ComboBox Classes="Orange" MinWidth="70" Height="37" HorizontalAlignment="Right" Items="{Binding EstimationTimeFormats}" SelectedItem="{Binding SetTimeFormat}" SelectedIndex="0"/>
+      <StackPanel Orientation="Horizontal" Margin="30 11" Grid.Column="3" HorizontalAlignment="Left" >
+        <ComboBox Classes="Orange" MinWidth="70" HorizontalAlignment="Right" Items="{Binding EstimationTimeFormats}" SelectedItem="{Binding SetTimeFormat}" SelectedIndex="0"/>
       </StackPanel>
       <StackPanel Orientation="Horizontal" Grid.Column="4" HorizontalAlignment="Right" >
         <ComboBox Classes="Orange" MinWidth="45" Height="37" HorizontalAlignment="Left" Items="{Binding Languages}" SelectedIndex="{Binding SetLanguage}"/>
@@ -126,14 +135,14 @@
     </Grid>
 
 
-    <Grid Margin="10" Grid.Row="1">
+    <Grid Margin="10" Grid.Row="2">
       <StackPanel Orientation="Horizontal" Margin="10 0">
         <TextBlock Classes="Text" MinWidth="115" Text="{x:Static resource:Resources.taskDescription}" TextAlignment="Left"/>
-        <TextBox Classes="Assesment" HorizontalAlignment="Stretch" Padding="5 7" Margin="5 5" MaxLength="130" MinHeight="35" MinWidth="545" MaxWidth="545" FontSize="15" Text="{Binding Description}"/>
+        <TextBox Classes="Assesment" HorizontalAlignment="Stretch" Padding="5 7" Margin="5 5" MaxLength="130" MinHeight="37" MinWidth="545" MaxWidth="545" FontSize="15" Text="{Binding Description}"/>
       </StackPanel>
     </Grid>
 
-    <Grid  Margin="10" Grid.Row="2">
+    <Grid  Margin="10" Grid.Row="3">
       <StackPanel Orientation="Horizontal" Margin="10 0">
         <Button Classes="ControlPanelButton" IsEnabled="{Binding IsEnableAddCommand}" Command="{Binding AddCommand}" Content="{x:Static resource:Resources.addTask}"></Button>
         <Button Classes="ControlPanelButton" IsEnabled="{Binding IsEnableResetCommand}" Command="{Binding ResetCommand}" Content="{x:Static resource:Resources.resetTask}"></Button>
